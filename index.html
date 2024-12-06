@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Progress Bar</title>
+    <script src="progress-bar.js"></script>
+</head>
+<body>
+    <h1>Iron Man Training Progress</h1>
+    
+    <!-- Progress Bars -->
+    <training-progress-bar 
+        progress="30" 
+        label="Monthly Swimming Goal:">
+    </training-progress-bar>
+
+    <br>
+    
+    <training-progress-bar 
+        progress="75" 
+        label="Weekly Cycling Goal:">
+    </training-progress-bar>
+    
+    <br>
+    
+    <training-progress-bar 
+        progress="75" 
+        label="Weekly Running Goal:">
+    </training-progress-bar>
+  
+
+    <!-- Add controls to update progress -->
+    <div style="margin-top: 20px;">
+        <button onclick="updateProgress()">Update Progress</button>
+    </div>
+
+    <script>
+        function updateProgress() {
+            // Get all progress bars
+            const bars = document.querySelectorAll('training-progress-bar');
+            
+            // Update each bar with a random progress
+            bars.forEach(bar => {
+                const newProgress = Math.floor(Math.random() * 100);
+                bar.setAttribute('progress', newProgress);
+            });
+        }
+    </script>
+</body>
+</html>
