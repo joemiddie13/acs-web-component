@@ -3,48 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Progress Bar</title>
+    <title>Ironman Training Tracker</title>
     <script src="progress-bar.js"></script>
+    <style>
+        .sport-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .training-form {
+            margin-top: 15px;
+            display: grid;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .training-form input, .training-form button {
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .goal-setting {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .training-log {
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h1>Iron Man Training Progress</h1>
-    
-    <!-- Progress Bars -->
-    <training-progress-bar 
-        progress="30" 
-        label="Monthly Swimming Goal:">
-    </training-progress-bar>
+    <h1>Ironman Training Tracker</h1>
 
-    <br>
-    
-    <training-progress-bar 
-        progress="75" 
-        label="Weekly Cycling Goal:">
-    </training-progress-bar>
-    
-    <br>
-    
-    <training-progress-bar 
-        progress="75" 
-        label="Weekly Running Goal:">
-    </training-progress-bar>
-  
+    <!-- Swimming Section -->
+    <div class="sport-section">
+        <h2>Swimming</h2>
+        
+        <div class="goal-setting">
+            <label>Weekly Goal (meters): 
+                <input type="number" id="swimGoal" value="5000" onchange="updateGoal('swim')">
+            </label>
+        </div>
 
-    <!-- Add controls to update progress -->
-    <div style="margin-top: 20px;">
-        <button onclick="updateProgress()">Update Progress</button>
+        <training-progress-bar 
+            id="swimProgress"
+            progress="0" 
+            label="Weekly Swimming Progress:">
+        </training-progress-bar>
+
+        <form class="training-form" onsubmit="logTraining('swim', event)">
+            <input type="date" id="swimDate" required>
+            <input type="number" id="swimDistance" placeholder="Distance (meters)" required>
+            <input type="time" id="swimTime" step="1" required>
+            <button type="submit">Log Swim</button>
+        </form>
+
+        <div class="training-log">
+            <h3>Swimming Log</h3>
+            <table id="swimLog">
+                <tr>
+                    <th>Date</th>
+                    <th>Distance (meters)</th>
+                    <th>Time</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Cycling Section -->
+    <div class="sport-section">
+        <h2>Cycling</h2>
+        
+        <div class="goal-setting">
+            <label>Weekly Goal (miles): 
+                <input type="number" id="bikeGoal" value="100" onchange="updateGoal('bike')">
+            </label>
+        </div>
+
+        <training-progress-bar 
+            id="bikeProgress"
+            progress="0" 
+            label="Weekly Cycling Progress:">
+        </training-progress-bar>
+
+        <form class="training-form" onsubmit="logTraining('bike', event)">
+            <input type="date" id="bikeDate" required>
+            <input type="number" id="bikeDistance" placeholder="Distance (miles)" required>
+            <input type="time" id="bikeTime" step="1" required>
+            <button type="submit">Log Ride</button>
+        </form>
+
+        <div class="training-log">
+            <h3>Cycling Log</h3>
+            <table id="bikeLog">
+                <tr>
+                    <th>Date</th>
+                    <th>Distance (miles)</th>
+                    <th>Time</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Running Section -->
+    <div class="sport-section">
+        <h2>Running</h2>
+        
+        <div class="goal-setting">
+            <label>Weekly Goal (miles): 
+                <input type="number" id="runGoal" value="30" onchange="updateGoal('run')">
+            </label>
+        </div>
+
+        <training-progress-bar 
+            id="runProgress"
+            progress="0" 
+            label="Weekly Running Progress:">
+        </training-progress-bar>
+
+        <form class="training-form" onsubmit="logTraining('run', event)">
+            <input type="date" id="runDate" required>
+            <input type="number" id="runDistance" placeholder="Distance (miles)" required>
+            <input type="time" id="runTime" step="1" required>
+            <button type="submit">Log Run</button>
+        </form>
+
+        <div class="training-log">
+            <h3>Running Log</h3>
+            <table id="runLog">
+                <tr>
+                    <th>Date</th>
+                    <th>Distance (miles)</th>
+                    <th>Time</th>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <script>
-        function updateProgress() {
-            // Get all progress bars
-            const bars = document.querySelectorAll('training-progress-bar');
+        // Store training data
+        const trainingData = {
+            swim: { logs: [], goal: 5000 },  // Updated default swim goal to 5000 meters
+            bike: { logs: [], goal: 100 },
+            run: { logs: [], goal: 30 }
+        };
+
+        function updateGoal(sport) {
+            const goal = document.getElementById(`${sport}Goal`).value;
+            trainingData[sport].goal = parseFloat(goal);
+            updateProgress(sport);
+        }
+
+        function logTraining(sport, event) {
+            event.preventDefault();
             
-            // Update each bar with a random progress
-            bars.forEach(bar => {
-                const newProgress = Math.floor(Math.random() * 100);
-                bar.setAttribute('progress', newProgress);
-            });
+            const date = document.getElementById(`${sport}Date`).value;
+            const distance = parseFloat(document.getElementById(`${sport}Distance`).value);
+            const time = document.getElementById(`${sport}Time`).value;
+
+            // Add to training data
+            trainingData[sport].logs.push({ date, distance, time });
+
+            // Add to table
+            const table = document.getElementById(`${sport}Log`);
+            const row = table.insertRow(1);
+            row.insertCell(0).textContent = date;
+            row.insertCell(1).textContent = distance;
+            row.insertCell(2).textContent = time;
+
+            // Reset form
+            event.target.reset();
+
+            // Update progress
+            updateProgress(sport);
+        }
+
+        function updateProgress(sport) {
+            const currentWeek = new Date().getTime() - (7 * 24 * 60 * 60 * 1000); // Last 7 days
+            
+            const totalDistance = trainingData[sport].logs
+                .filter(log => new Date(log.date).getTime() > currentWeek)
+                .reduce((sum, log) => sum + log.distance, 0);
+
+            const percentComplete = (totalDistance / trainingData[sport].goal) * 100;
+            const progressBar = document.getElementById(`${sport}Progress`);
+            progressBar.setAttribute('progress', Math.min(100, percentComplete));
         }
     </script>
 </body>
