@@ -20,6 +20,7 @@ body {
   color: #f0f0f0;
   background: linear-gradient(180deg, #ed1d24 30%, #ff0000 70%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
@@ -76,6 +77,21 @@ body {
   color: #ffffff;
 }
 
+/* Styling for input symbols/icons */
+.training-form input[type="date"]::-webkit-calendar-picker-indicator,
+.training-form input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the icons white */
+  cursor: pointer;
+}
+
+/* Styling for number input arrows */
+.training-form input[type="number"]::-webkit-inner-spin-button,
+.training-form input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(1); /* Makes the arrows white */
+  opacity: 1;
+  cursor: pointer;
+}
+
 .training-form input:focus {
   outline: none;
   border-color: #ed1d24;
@@ -118,6 +134,14 @@ body {
   border: 1px solid #333;
   background-color: #242424;
   color: #ffffff;
+}
+
+/* Style the number input arrows in goal settings */
+.goal-setting input[type="number"]::-webkit-inner-spin-button,
+.goal-setting input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(1);
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* Table styling */
