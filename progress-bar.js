@@ -7,24 +7,28 @@ class TrainingProgressBar extends HTMLElement {
           <style>
               .progress-container {
                   width: 100%;
-                  background-color: #f0f0f0;
+                  background-color: #1a1a1a;
                   border-radius: 10px;
                   padding: 4px;
                   box-sizing: border-box;
+                  border: 1px solid #333;
               }
               
               .progress-bar {
-                  height: 20px;
-                  background-color: #4CAF50;
+                  height: 24px;
+                  background: linear-gradient(90deg, #ed1d24, #ff0000);
                   border-radius: 8px;
                   width: 0%;
                   transition: width 0.3s ease-in-out;
+                  box-shadow: 0 0 10px rgba(237, 29, 36, 0.3);
               }
               
               .progress-label {
                   text-align: center;
-                  margin-top: 5px;
-                  font-family: Arial, sans-serif;
+                  margin-top: 8px;
+                  font-family: 'Roboto', sans-serif;
+                  color: #ffffff;
+                  font-size: 14px;
               }
           </style>
           

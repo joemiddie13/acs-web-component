@@ -4,57 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ironman Training Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="progress-bar.js"></script>
-    <style>
-        .sport-section {
-            margin: 20px 0;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        .training-form {
-            margin-top: 15px;
-            display: grid;
-            gap: 10px;
-            max-width: 400px;
-        }
-
-        .training-form input, .training-form button {
-            padding: 8px;
-            border-radius: 4px;
-        }
-
-        .goal-setting {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-        }
-
-        .training-log {
-            margin-top: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
-    <h1>Ironman Training Tracker</h1>
+    <div class="title-container">
+        <h1 class="marvel-title">Ironman Training Tracker</h1>
+    </div>
 
     <!-- Swimming Section -->
     <div class="sport-section">
@@ -164,7 +121,7 @@
     <script>
         // Store training data
         const trainingData = {
-            swim: { logs: [], goal: 5000 },  // Updated default swim goal to 5000 meters
+            swim: { logs: [], goal: 5000 },
             bike: { logs: [], goal: 100 },
             run: { logs: [], goal: 30 }
         };
