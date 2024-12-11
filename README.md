@@ -2,6 +2,8 @@
 
 ## Overview
 This project implements a web component-based training progress tracker specifically designed for triathletes and Ironman participants. The application uses custom HTML elements to create reusable, encapsulated components that track and visualize training progress across swimming, cycling, and running disciplines.
+<img width="1554" alt="image" src="https://github.com/user-attachments/assets/508cbf18-5ccc-4ba8-9050-bc34a379f109">
+
 
 ## Features
 
